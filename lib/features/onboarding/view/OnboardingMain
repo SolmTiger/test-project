@@ -1,0 +1,49 @@
+import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+// استيراد الـ Widgets التي أنشأناها أعلاه
+
+class OnboardingMain extends StatefulWidget {
+  const OnboardingMain({super.key});
+  @override
+  State<OnboardingMain> createState() => _OnboardingMainState();
+}
+
+class _OnboardingMainState extends State<OnboardingMain> {
+  final PageController _pageController = PageController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF336DF6), // اللون الأزرق الموحد
+      body: Stack(
+        children: [
+          PageView(
+            controller: _pageController,
+            children: [
+              FirstOnboardingBody(controller: _pageController),
+              SecOnboardingBody(controller: _pageController),
+              LogoOnboardingBody(),
+            ],
+          ),
+          // الـ Indicator في الأعلى
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: SmoothPageIndicator(
+                controller: _pageController,
+                count: 3,
+                effect: const ExpandingDotsEffect(
+                  dotHeight: 8,
+                  dotWidth: 8,
+                  expansionFactor: 4,
+                  activeDotColor: Colors.white,
+                  dotColor: Colors.white54,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
